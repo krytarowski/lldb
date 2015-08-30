@@ -25,6 +25,13 @@ include_directories(
   )
 endif ()
 
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+include_directories(
+  Plugins/Process/NetBSD
+  Plugins/Process/POSIX
+  )
+endif ()
+
 add_lldb_library(lldbBase
   lldb.cpp
   )
@@ -71,4 +78,3 @@ if ( NOT CMAKE_SYSTEM_NAME MATCHES "Windows" )
 endif ()
 # FIXME: implement svn/git revision and repository parsing solution on Windows. There is an SVN-only
 #        revision parsing solution in tools/clang/lib/Basic/CMakelists.txt.
-

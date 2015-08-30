@@ -31,6 +31,7 @@ set( LLDB_USED_LIBS
   lldbPluginPlatformAndroid
   lldbPluginPlatformGDB
   lldbPluginPlatformFreeBSD
+  lldbPluginPlatformNetBSD
   lldbPluginPlatformKalimba
   lldbPluginPlatformLinux
   lldbPluginPlatformPOSIX
@@ -94,6 +95,16 @@ endif ()
 if ( CMAKE_SYSTEM_NAME MATCHES "FreeBSD" )
   list(APPEND LLDB_USED_LIBS
     lldbPluginProcessFreeBSD
+    lldbPluginProcessPOSIX
+    lldbPluginProcessElfCore
+    lldbPluginJITLoaderGDB
+    )
+endif ()
+
+# NetBSD-only libraries
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+  list(APPEND LLDB_USED_LIBS
+    lldbPluginProcessNetBSD
     lldbPluginProcessPOSIX
     lldbPluginProcessElfCore
     lldbPluginJITLoaderGDB

@@ -29,4 +29,9 @@ ifneq (,$(filter $(HOST_OS), FreeBSD GNU/kFreeBSD))
 CPP.Flags += -I$(PROJ_SRC_DIR)/$(LLDB_LEVEL)/source/Plugins/Process/FreeBSD
 endif
 
+ifeq ($(HOST_OS),NetBSD)
+# Extend the include path so we may locate ProcessMonitor
+CPP.Flags += -I$(PROJ_SRC_DIR)/$(LLDB_LEVEL)/source/Plugins/Process/NetBSD
+endif
+
 include $(LLDB_LEVEL)/Makefile

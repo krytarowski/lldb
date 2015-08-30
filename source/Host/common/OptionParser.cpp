@@ -51,7 +51,7 @@ OptionParser::Parse (int argc,
         ++longopts;
     }
     opts.push_back(option());
-    return getopt_long_only(argc, argv, optstring, &opts[0], longindex);
+    return getopt_long(argc, argv, optstring, &opts[0], longindex);
 }
 
 char*

@@ -35,3 +35,6 @@ ifeq ($(HOST_OS),FreeBSD)
 	LLVMLibsOptions += -Wl,-rpath,$(LibDir)
 endif
 
+ifeq ($(HOST_OS),NetBSD)
+	LLVMLibsOptions += -Wl,-rpath,$(LibDir)
+endif

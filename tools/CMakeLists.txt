@@ -7,6 +7,7 @@ endif()
 if (NOT __ANDROID_NDK__)
   add_subdirectory(lldb-mi)
 endif()
-if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "Linux")
+if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "NetBSD"
+    OR CMAKE_SYSTEM_NAME MATCHES "Linux")
   add_subdirectory(lldb-server)
 endif()

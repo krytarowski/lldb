@@ -170,7 +170,7 @@ main_platform (int argc, char *argv[])
     optind = 1;
 #endif
 
-    while ((ch = getopt_long_only(argc, argv, short_options.c_str(), g_long_options, &long_option_index)) != -1)
+    while ((ch = getopt_long(argc, argv, short_options.c_str(), g_long_options, &long_option_index)) != -1)
     {
         switch (ch)
         {
