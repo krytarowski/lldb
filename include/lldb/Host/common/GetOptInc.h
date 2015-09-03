@@ -2,6 +2,15 @@
 
 #include "lldb/lldb-defines.h"
 
+#if defined(_MSC_VER)
+#define REPLACE_GETOPT
+#define REPLACE_GETOPT_LONG
+#endif
+#if defined(_MSC_VER) || defined(__NetBSD__)
+#define REPLACE_GETOPT_LONG
+#endif
+
+#if defined(REPLACE_GETOPT)
 // from getopt.h
 #define no_argument       0
 #define required_argument 1
@@ -28,7 +37,15 @@ extern int    optopt;
 
 // defined in unistd.h
 extern int    optreset;
+#else
+# ifdef _WIN32
+#  define _BSD_SOURCE // Required so that getopt.h defines optreset
+# endif
+# include <unistd.h>
+# include <getopt.h>
+#endif
 
+#if defined(REPLACE_GETOPT_LONG)
 int getopt_long
 (
     int argc,
@@ -37,7 +54,9 @@ int getopt_long
     const struct option *longopts,
     int *longindex
 );
+#endif
 
+#if defined(REPLACE_GETOPT_LONG_ONLY)
 int getopt_long_only
 (
     int argc,
@@ -46,3 +65,4 @@ int getopt_long_only
     const struct option *longopts,
     int *longindex
 );
+#endif
