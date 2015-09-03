@@ -7,7 +7,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__linux__)
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__linux__) || defined(__NetBSD__)
 
 // In-house headers:
 #include "MIUtilSystemLinux.h"

@@ -3,6 +3,7 @@ include_directories(../../../Utility/)
 add_lldb_library(lldbPluginProcessUtility
   DynamicRegisterInfo.cpp
   FreeBSDSignals.cpp
+  NetBSDSignals.cpp
   GDBRemoteSignals.cpp
   HistoryThread.cpp
   HistoryUnwind.cpp
@@ -20,6 +21,8 @@ add_lldb_library(lldbPluginProcessUtility
   RegisterContextFreeBSD_mips64.cpp
   RegisterContextFreeBSD_powerpc.cpp
   RegisterContextFreeBSD_x86_64.cpp
+  RegisterContextNetBSD_i386.cpp
+  RegisterContextNetBSD_x86_64.cpp
   RegisterContextHistory.cpp
   RegisterContextLinux_arm.cpp
   RegisterContextLinux_arm64.cpp

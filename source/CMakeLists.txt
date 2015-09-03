@@ -25,6 +25,13 @@ include_directories(
   )
 endif ()
 
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+include_directories(
+  Plugins/Process/NetBSD
+  Plugins/Process/POSIX
+  )
+endif ()
+
 add_lldb_library(lldbBase
   lldb.cpp
   )

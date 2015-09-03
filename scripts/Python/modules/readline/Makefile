@@ -74,6 +74,16 @@ ifeq ($(HOST_OS),FreeBSD)
     # LLVMLibsOptions += -L/usr/local/lib -ledit
 endif
 
+ifeq ($(HOST_OS),NetBSD)
+    # Include everything from the .a's into the shared library.
+    ProjLibsOptions := -Wl,--whole-archive $(ProjLibsOptions) \
+                       -Wl,--no-whole-archive
+    # Allow unresolved symbols.
+    LLVMLibsOptions += -Wl,--allow-shlib-undefined
+    # Link in libedit
+    # LLVMLibsOptions += -L/usr/local/lib -ledit
+endif
+
 # FIXME: dynamically construct the version from `python -V`
 PYTHON_VERSION:=2.7
 LLDB_PYTHON_MODULE_REL_DIR:=python$(PYTHON_VERSION)/site-packages
