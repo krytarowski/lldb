@@ -87,6 +87,12 @@ if ( CMAKE_SYSTEM_NAME MATCHES "Windows" )
     )
 endif ()
 
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+  list(APPEND LLDB_MI_SOURCES
+    ${LLDB_SOURCE_ROOT}/Host/netbsd/getopt/GetOptInc.cpp
+    )
+endif ()
+
 add_lldb_executable(lldb-mi ${LLDB_MI_SOURCES})
 
 target_link_libraries(lldb-mi liblldb)

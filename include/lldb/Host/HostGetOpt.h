@@ -17,6 +17,10 @@
 #include <unistd.h>
 #include <getopt.h>
 
+#if defined(__NetBSD__)
+#include <lldb/Host/netbsd/getopt/GetOptInc.h>
+#endif
+
 #else
 
 #include <lldb/Host/windows/getopt/GetOptInc.h>

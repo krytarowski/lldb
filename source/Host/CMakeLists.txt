@@ -123,12 +123,19 @@ else()
         linux/ThisThread.cpp
         )
     endif()
+
   elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
     add_host_subdirectory(freebsd
       freebsd/Host.cpp
       freebsd/HostInfoFreeBSD.cpp
       freebsd/HostThreadFreeBSD.cpp
       freebsd/ThisThread.cpp
+      )
+  endif()
+
+  elseif (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+    add_host_subdirectory(netbsd
+      netbsd/getopt/GetOptInc.cpp
       )
   endif()
 endif()
