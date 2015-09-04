@@ -44,9 +44,13 @@ ifeq ($(HOST_OS),MingW)
 CXXFLAGS += -DLLDB_DISABLE_PYTHON -DLLDB_DISABLE_CURSES
 endif
 
+# NetBSD temporary hack
+CXXFLAGS += -DLLDB_DISABLE_CURSES -DLLDB_DISABLE_CURSES
+LLVMLibsOptions += -lkvm /usr/pkg/lib/libpython2.7.so
+
 ifeq (,$(findstring -DLLDB_DISABLE_PYTHON,$(CXXFLAGS)))
 # Set Python include directory
-PYTHON_INC_DIR = $(shell python-config --includes)
+PYTHON_INC_DIR = $(shell python2.7-config --includes)
 CPP.Flags +=   $(PYTHON_INC_DIR)
 endif
 

@@ -18,7 +18,7 @@ LINK_LIBS_IN_SHARED = 1
 SHARED_LIBRARY = 1
 
 ifeq (,$(findstring -DLLDB_DISABLE_PYTHON,$(CXXFLAGS)))
-PYTHON_BUILD_FLAGS = $(shell python-config --ldflags)
+PYTHON_BUILD_FLAGS = $(shell python2.7-config --ldflags)
 endif
 
 # Include all archives in liblldb.so file
