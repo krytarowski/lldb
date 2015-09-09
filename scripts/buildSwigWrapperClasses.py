@@ -414,6 +414,25 @@ def check_lldb_swig_executable_file_exists_FreeBSD( vDictArgs ):
     return (bExeFileFound, strStatusMsg);
 
 #++---------------------------------------------------------------------------
+# Details:  Locate the SWIG executable file in a NetBSD system. Several hard
+#           coded predetermined possible file path locations are searched.
+#           (This is good candidate for a derived class object)
+# Args:     vDictArgs   - (W) Program input parameters.
+# Returns:  Bool    - True = Success.
+#                   - False = Failure file not found.
+#           Str     - Error message.
+# Throws:   None.
+#--
+def check_lldb_swig_executable_file_exists_NetBSD( vDictArgs ):
+    dbg = utilsDebug.CDebugFnVerbose( "check_lldb_swig_executable_file_exists_NetBSD()" );
+    bExeFileFound = False;
+    # ToDo: Find the SWIG executable and add the path to the args dictionary
+    #vDictArgs.[ "--swigExePath" ] = "/usr/bin/swig";
+    strStatusMsg = "Sorry function 'check_lldb_swig_executable_file_exists_NetBSD()' is not implemented";
+
+    return (bExeFileFound, strStatusMsg);
+
+#++---------------------------------------------------------------------------
 # Details:  Locate the SWIG executable file. Several hard coded predetermined
 #           possible file path locations are searched.
 # Args:     vDictArgs   - (RW) Program input parameters.

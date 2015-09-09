@@ -40,6 +40,12 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     DEPENDS ${LLDB_VERS_GENERATED_FILE})
 endif()
 
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+include_directories(
+  Plugins/Process/POSIX
+  )
+endif ()
+
 add_lldb_library(lldbBase
   ${lldbBase_SOURCES}
   )

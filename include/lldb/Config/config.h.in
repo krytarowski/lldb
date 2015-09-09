@@ -1,0 +1,14 @@
+/* This generated file is for internal use. Do not include it from headers. */
+
+#ifdef CONFIG_H
+#error config.h can only be included once
+#else
+#define CONFIG_H
+
+/* Define to 1 if you have the <ncurses.h> header file. */
+#undef HAVE_NCURSES_H
+
+/* Define to 1 if you have the <ncurses/ncurses.h> header file. */
+#undef HAVE_NCURSES_NCURSES_H
+
+#endif

@@ -18,7 +18,7 @@ LINK_LIBS_IN_SHARED = 1
 SHARED_LIBRARY = 1
 
 ifeq (,$(findstring -DLLDB_DISABLE_PYTHON,$(CXXFLAGS)))
-PYTHON_BUILD_FLAGS = $(shell python-config --ldflags)
+PYTHON_BUILD_FLAGS = $(shell python2.7-config --ldflags)
 endif
 
 # Include all archives in liblldb.so file
@@ -191,13 +191,13 @@ ifeq ($(HOST_OS), $(filter $(HOST_OS), Linux GNU GNU/kFreeBSD))
     LLVMLibsOptions += -Wl,--soname,lib$(LIBRARYNAME)$(SHLIBEXT)
 endif
 
-ifeq ($(HOST_OS),FreeBSD)
+ifeq ($(HOST_OS), $(filter $(HOST_OS), FreeBSD NetBSD))
     # Include everything from the .a's into the shared library.
     ProjLibsOptions := -Wl,--whole-archive $(ProjLibsOptions) \
                        -Wl,--no-whole-archive
     # Allow unresolved symbols.
     LLVMLibsOptions += -Wl,--allow-shlib-undefined
     # Link in python
-    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -L/usr/local/lib -lexecinfo \
-                       -ledit -lncurses -lpanel -lpthread
+    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -L/usr/pkg/lib -L/usr/pkg/lib/python2.7/ -lexecinfo \
+                       -ledit -lncurses -lpanel -lpthread -L/usr/pkg/lib
 endif
