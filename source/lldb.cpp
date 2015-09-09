@@ -67,7 +67,7 @@ lldb_private::GetVersion ()
 
     return g_version_string;
 #else
-    // On Linux/FreeBSD/Windows, report a version number in the same style as the clang tool.
+    // On Linux/FreeBSD/NetBSD/Windows, report a version number in the same style as the clang tool.
     static std::string g_version_str;
     if (g_version_str.empty())
     {
