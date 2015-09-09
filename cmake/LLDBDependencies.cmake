@@ -35,6 +35,7 @@ set( LLDB_USED_LIBS
   lldbPluginPlatformAndroid
   lldbPluginPlatformGDB
   lldbPluginPlatformFreeBSD
+  lldbPluginPlatformNetBSD
   lldbPluginPlatformKalimba
   lldbPluginPlatformLinux
   lldbPluginPlatformPOSIX
@@ -102,6 +103,13 @@ if ( CMAKE_SYSTEM_NAME MATCHES "FreeBSD" )
     )
 endif ()
 
+# NetBSD-only libraries
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+  list(APPEND LLDB_USED_LIBS
+    lldbPluginProcessPOSIX
+    )
+endif ()
+
 # Darwin-only libraries
 if ( CMAKE_SYSTEM_NAME MATCHES "Darwin" )
   list(APPEND LLDB_USED_LIBS
@@ -135,7 +143,7 @@ if (NOT CMAKE_SYSTEM_NAME MATCHES "Windows" AND NOT __ANDROID_NDK__)
     list(APPEND LLDB_SYSTEM_LIBS edit)
   endif()
   if (NOT LLDB_DISABLE_CURSES)
-    list(APPEND LLDB_SYSTEM_LIBS panel ncurses)
+    list(APPEND LLDB_SYSTEM_LIBS ${CURSES_LIBRARIES})
     if(LLVM_ENABLE_TERMINFO AND HAVE_TERMINFO)
       list(APPEND LLDB_SYSTEM_LIBS ${TERMINFO_LIBS})
     endif()

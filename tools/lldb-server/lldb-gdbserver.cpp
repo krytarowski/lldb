@@ -7,6 +7,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include <lldb/Host/common/GetOptInc.h>
+
 // C Includes
 #include <errno.h>
 #include <stdint.h>

@@ -33,6 +33,12 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     DEPENDS ${LLDB_VERS_GENERATED_FILE})
 endif()
 
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+include_directories(
+  Plugins/Process/POSIX
+  )
+endif ()
+
 add_lldb_library(lldbBase
   ${lldbBase_SOURCES}
   )
@@ -83,4 +89,3 @@ if ( NOT CMAKE_SYSTEM_NAME MATCHES "Windows" )
 endif ()
 # FIXME: implement svn/git revision and repository parsing solution on Windows. There is an SVN-only
 #        revision parsing solution in tools/clang/lib/Basic/CMakelists.txt.
-
