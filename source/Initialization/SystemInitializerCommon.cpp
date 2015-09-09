@@ -29,6 +29,7 @@
 #include "Plugins/OperatingSystem/Go/OperatingSystemGo.h"
 #include "Plugins/Platform/Android/PlatformAndroid.h"
 #include "Plugins/Platform/FreeBSD/PlatformFreeBSD.h"
+#include "Plugins/Platform/NetBSD/PlatformNetBSD.h"
 #include "Plugins/Platform/Kalimba/PlatformKalimba.h"
 #include "Plugins/Platform/Linux/PlatformLinux.h"
 #include "Plugins/Platform/MacOSX/PlatformiOSSimulator.h"
@@ -113,6 +114,7 @@ SystemInitializerCommon::Initialize()
     DynamicLoaderPOSIXDYLD::Initialize();
     DynamicLoaderWindowsDYLD::Initialize();
     platform_freebsd::PlatformFreeBSD::Initialize();
+    platform_netbsd::PlatformNetBSD::Initialize();
     platform_linux::PlatformLinux::Initialize();
     PlatformWindows::Initialize();
     PlatformKalimba::Initialize();
@@ -160,6 +162,7 @@ SystemInitializerCommon::Terminate()
     DynamicLoaderPOSIXDYLD::Terminate();
     DynamicLoaderWindowsDYLD::Terminate();
     platform_freebsd::PlatformFreeBSD::Terminate();
+    platform_netbsd::PlatformNetBSD::Terminate();
     platform_linux::PlatformLinux::Terminate();
     PlatformWindows::Terminate();
     PlatformKalimba::Terminate();

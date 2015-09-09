@@ -11,6 +11,7 @@
 #include <string>
 
 #include "lldb/Breakpoint/BreakpointLocation.h"
+#include "lldb/Config/config.h"
 #include "lldb/Core/IOHandler.h"
 #include "lldb/Core/Debugger.h"
 #include "lldb/Core/Module.h"
@@ -29,8 +30,17 @@
 #include "lldb/Target/ThreadPlan.h"
 
 #ifndef LLDB_DISABLE_CURSES
+
+#if defined(HAVE_NCURSES_H)
 #include <ncurses.h>
 #include <panel.h>
+#elif defined(HAVE_NCURSES_NCURSES_H)
+#include <ncurses/ncurses.h>
+#include <ncurses/panel.h>
+#else
+#error No NCURSES header!
+#endif
+
 #endif
 
 using namespace lldb;
