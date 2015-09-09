@@ -20,6 +20,6 @@ ifeq ($(HOST_OS),Darwin)
 	LLVMLibsOptions += -Wl,-rpath,@loader_path/../lib/
 endif
 
-ifeq ($(HOST_OS), $(filter $(HOST_OS), Linux FreeBSD GNU/kFreeBSD))
-	LLVMLibsOptions += -Wl,-rpath,$(LibDir) -lpthread
+ifeq ($(HOST_OS), $(filter $(HOST_OS), Linux FreeBSD NetBSD GNU/kFreeBSD))
+	LLVMLibsOptions += -Wl,-rpath,$(LibDir) -lpthread -Wl,-rpath,/usr/pkg/lib -lkvm -Wl,-rpath,$(LibDir)
 endif
