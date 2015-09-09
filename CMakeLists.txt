@@ -4,6 +4,17 @@ include(cmake/modules/LLDBStandalone.cmake)
 include(cmake/modules/LLDBConfig.cmake)
 include(cmake/modules/AddLLDB.cmake)
 
+if (NOT LLDB_DISABLE_CURSES)
+set(CURSES_NEED_NCURSES TRUE)
+find_package(Curses REQUIRED)
+
+FIND_LIBRARY(NCURSES_PANEL_LIBRARY NAMES panel DOC "The ncureses panel library")
+IF(CURSES_FOUND)
+#   add panels to the library path
+    SET(CURSES_LIBRARIES ${CURSES_LIBRARIES} ${NCURSES_PANEL_LIBRARY})
+ENDIF()
+endif ()
+
 #add_subdirectory(include)
 add_subdirectory(docs)
 if (NOT LLDB_DISABLE_PYTHON)
@@ -14,6 +25,10 @@ add_subdirectory(test)
 add_subdirectory(tools)
 add_subdirectory(unittests)
 add_subdirectory(lit)
+
+configure_file(
+    ${LLDB_SOURCE_DIR}/include/lldb/Config/config.h.cmake
+    ${LLDB_BINARY_DIR}/include/lldb/Config/config.h)
 
 if (NOT LLDB_DISABLE_PYTHON)
     # Add a Post-Build Event to copy over Python files and create the symlink to liblldb.so for the Python API(hardlink on Windows)

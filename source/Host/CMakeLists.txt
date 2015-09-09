@@ -123,6 +123,7 @@ else()
         linux/ThisThread.cpp
         )
     endif()
+
   elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
     add_host_subdirectory(freebsd
       freebsd/Host.cpp
@@ -130,7 +131,19 @@ else()
       freebsd/HostThreadFreeBSD.cpp
       freebsd/ThisThread.cpp
       )
+
+  elseif (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+    add_host_subdirectory(netbsd
+      netbsd/Host.cpp
+      netbsd/HostInfoNetBSD.cpp
+      netbsd/HostThreadNetBSD.cpp
+      netbsd/ThisThread.cpp
+      )
   endif()
 endif()
 
 add_lldb_library(lldbHost ${HOST_SOURCES})
+
+if (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+TARGET_LINK_LIBRARIES(lldbHost kvm)
+endif ()
