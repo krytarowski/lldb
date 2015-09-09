@@ -20,7 +20,7 @@ LINK_LIBS_IN_SHARED = 1
 SHARED_LIBRARY = 1
 LOADABLE_MODULE = 1
 
-PYTHON_INC_DIR = $(shell python-config --includes)
+PYTHON_INC_DIR = $(shell python2.7-config --includes)
 
 # Include all archives in the shared lib
 USEDLIBS :=
