@@ -35,6 +35,7 @@ set( LLDB_USED_LIBS
   lldbPluginPlatformAndroid
   lldbPluginPlatformGDB
   lldbPluginPlatformFreeBSD
+  lldbPluginPlatformNetBSD
   lldbPluginPlatformKalimba
   lldbPluginPlatformLinux
   lldbPluginPlatformPOSIX
@@ -105,6 +106,15 @@ if ( CMAKE_SYSTEM_NAME MATCHES "FreeBSD" )
     )
 endif ()
 
+# NetBSD-only libraries
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+  list(APPEND LLDB_USED_LIBS
+    lldbPluginProcessPOSIX
+    lldbPluginProcessElfCore
+    lldbPluginJITLoaderGDB
+    )
+endif ()
+
 # Darwin-only libraries
 if ( CMAKE_SYSTEM_NAME MATCHES "Darwin" )
   set(LLDB_VERS_GENERATED_FILE ${LLDB_BINARY_DIR}/source/LLDB_vers.c)
@@ -149,7 +159,7 @@ if (NOT CMAKE_SYSTEM_NAME MATCHES "Windows" AND NOT __ANDROID_NDK__)
   endif()
 endif()
 # On FreeBSD backtrace() is provided by libexecinfo, not libc.
-if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR MAKE_SYSTEM_NAME MATCHES "NetBSD")
   list(APPEND LLDB_SYSTEM_LIBS execinfo)
 endif()
 

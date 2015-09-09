@@ -66,4 +66,10 @@ PARALLEL_DIRS += Process/elf-core
 PARALLEL_DIRS += JITLoader/GDB
 endif
 
+ifeq ($(HOST_OS),NetBSD)
+PARALLEL_DIRS += Process/POSIX
+PARALLEL_DIRS += Process/elf-core
+PARALLEL_DIRS += JITLoader/GDB
+endif
+
 include $(LLDB_LEVEL)/Makefile
