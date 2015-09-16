@@ -4,6 +4,10 @@ include(cmake/modules/LLDBStandalone.cmake)
 include(cmake/modules/LLDBConfig.cmake)
 include(cmake/modules/AddLLDB.cmake)
 
+# the ncurses dependency
+set(CURSES_NEED_NCURSES TRUE)
+find_package(Curses REQUIRED)
+
 #add_subdirectory(include)
 add_subdirectory(docs)
 if (NOT LLDB_DISABLE_PYTHON)
@@ -14,6 +18,10 @@ add_subdirectory(test)
 add_subdirectory(tools)
 add_subdirectory(unittests)
 add_subdirectory(lit)
+
+configure_file(
+    ${LLDB_SOURCE_DIR}/include/lldb/Config/config.h.cmake
+    ${LLDB_BINARY_DIR}/include/lldb/Config/config.h)
 
 if (NOT LLDB_DISABLE_PYTHON)
     # Add a Post-Build Event to copy over Python files and create the symlink to liblldb.so for the Python API(hardlink on Windows)

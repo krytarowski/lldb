@@ -1,0 +1,12 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#cmakedefine CURSES_CURSES_HAS_WSYNCUP
+#cmakedefine CURSES_NCURSES_HAS_WSYNCUP
+#cmakedefine CURSES_HAVE_CURSES_H
+#cmakedefine CURSES_CURSES_H_PATH
+#cmakedefine CURSES_HAVE_NCURSES_H
+#cmakedefine CURSES_HAVE_NCURSES_NCURSES_H
+#cmakedefine CURSES_HAVE_NCURSES_CURSES_H
+
+#endif // CONFIG_H

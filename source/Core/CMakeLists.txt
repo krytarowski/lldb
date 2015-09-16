@@ -74,3 +74,5 @@ add_lldb_library(lldbCore
   VMRange.cpp
   )
 
+include_directories(${CURSES_INCLUDE_DIR})
+target_link_libraries(lldbCore ${CURSES_LIBRARIES})
