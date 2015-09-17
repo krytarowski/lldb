@@ -10,8 +10,6 @@
 #ifndef liblldb_RegisterContextNetBSD_x86_64_H_
 #define liblldb_RegisterContextNetBSD_x86_64_H_
 
-#include "RegisterContextPOSIX.h"
-
 class RegisterContextNetBSD_x86_64:
     public lldb_private::RegisterInfoInterface
 {

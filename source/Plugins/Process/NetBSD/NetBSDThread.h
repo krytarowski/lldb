@@ -16,7 +16,6 @@
 
 // Other libraries and framework includes
 #include "lldb/Target/Thread.h"
-#include "Plugins/Process/Utility/RegisterContextPOSIX.h"
 
 class ProcessMessage;
 class ProcessMonitor;
