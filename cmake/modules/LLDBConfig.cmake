@@ -190,7 +190,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
   find_library(DEBUG_SYMBOLS_LIBRARY DebugSymbols PATHS "/System/Library/PrivateFrameworks")
 
   add_definitions( -DLIBXML2_DEFINED )
-  list(APPEND system_libs xml2 ncurses panel)
+  list(APPEND system_libs xml2)
   list(APPEND system_libs ${CARBON_LIBRARY} ${FOUNDATION_LIBRARY}
   ${CORE_FOUNDATION_LIBRARY} ${CORE_SERVICES_LIBRARY} ${SECURITY_LIBRARY}
   ${DEBUG_SYMBOLS_LIBRARY})
@@ -276,3 +276,17 @@ if ( CMAKE_SYSTEM_NAME MATCHES "Darwin" )
 else()
     set(LLDB_CAN_USE_DEBUGSERVER 0)
 endif()
+
+if (NOT LLDB_DISABLE_CURSES)
+    set(CURSES_NEED_NCURSES TRUE)
+    find_package(Curses REQUIRED)
+
+    find_library(NCURSES_PANEL_LIBRARY NAMES panel DOC "The ncureses panel library")
+    if (CURSES_FOUND)
+        # Add panels to the library path
+        set (CURSES_LIBRARIES ${CURSES_LIBRARIES} ${NCURSES_PANEL_LIBRARY})
+    endif ()
+
+    list(APPEND system_libs ${CURSES_LIBRARIES})
+    include_directories(${CURSES_INCLUDE_DIR})
+endif ()
