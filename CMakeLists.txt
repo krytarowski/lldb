@@ -15,6 +15,10 @@ add_subdirectory(tools)
 add_subdirectory(unittests)
 add_subdirectory(lit)
 
+configure_file(
+    ${LLDB_SOURCE_DIR}/include/lldb/Config/config.h.cmake
+    ${LLDB_BINARY_DIR}/include/lldb/Config/config.h)
+
 if (NOT LLDB_DISABLE_PYTHON)
     # Add a Post-Build Event to copy over Python files and create the symlink to liblldb.so for the Python API(hardlink on Windows)
     add_custom_target( finish_swig ALL
