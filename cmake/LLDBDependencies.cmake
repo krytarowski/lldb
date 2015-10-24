@@ -37,6 +37,7 @@ set( LLDB_USED_LIBS
   lldbPluginPlatformFreeBSD
   lldbPluginPlatformKalimba
   lldbPluginPlatformLinux
+  lldbPluginPlatformNetBSD
   lldbPluginPlatformPOSIX
   lldbPluginPlatformWindows
   lldbPluginObjectContainerMachOArchive
@@ -98,6 +99,13 @@ endif ()
 if ( CMAKE_SYSTEM_NAME MATCHES "FreeBSD" )
   list(APPEND LLDB_USED_LIBS
     lldbPluginProcessFreeBSD
+    lldbPluginProcessPOSIX
+    )
+endif ()
+
+# NetBSD-only libraries
+if ( CMAKE_SYSTEM_NAME MATCHES "NetBSD" )
+  list(APPEND LLDB_USED_LIBS
     lldbPluginProcessPOSIX
     )
 endif ()

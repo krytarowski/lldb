@@ -34,6 +34,7 @@
 #include "Plugins/Platform/MacOSX/PlatformiOSSimulator.h"
 #include "Plugins/Platform/MacOSX/PlatformMacOSX.h"
 #include "Plugins/Platform/MacOSX/PlatformRemoteiOS.h"
+#include "Plugins/Platform/NetBSD/PlatformNetBSD.h"
 #include "Plugins/Platform/Windows/PlatformWindows.h"
 #include "Plugins/Process/gdb-remote/ProcessGDBRemoteLog.h"
 
