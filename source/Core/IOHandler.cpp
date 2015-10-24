@@ -29,7 +29,7 @@
 #include "lldb/Target/ThreadPlan.h"
 
 #ifndef LLDB_DISABLE_CURSES
-#include <ncurses.h>
+#include <curses.h>
 #include <panel.h>
 #endif
 
@@ -4133,7 +4133,9 @@ CursesKeyToCString (int ch)
         case KEY_UNDO:      return "undo key";
         case KEY_MOUSE:     return "Mouse event has occurred";
         case KEY_RESIZE:    return "Terminal resize event";
+#ifdef KEY_EVENT
         case KEY_EVENT:     return "We were interrupted by an event";
+#endif
         case KEY_RETURN:    return "return";
         case ' ':           return "space";
         case '\t':          return "tab";
