@@ -154,6 +154,26 @@ else()
       netbsd/HostThreadNetBSD.cpp
       netbsd/ThisThread.cpp
       )
+    if (NOT LLDB_CURSES_HAS_LIBPANEL)
+      add_host_subdirectory(netbsd
+        netbsd/libpanel/_deck.cpp
+        netbsd/libpanel/above.cpp
+        netbsd/libpanel/below.cpp
+        netbsd/libpanel/bottom.cpp
+        netbsd/libpanel/del.cpp
+        netbsd/libpanel/getuser.cpp
+        netbsd/libpanel/hidden.cpp
+        netbsd/libpanel/hide.cpp
+        netbsd/libpanel/move.cpp
+        netbsd/libpanel/new.cpp
+        netbsd/libpanel/replace.cpp
+        netbsd/libpanel/setuser.cpp
+        netbsd/libpanel/show.cpp
+        netbsd/libpanel/top.cpp
+        netbsd/libpanel/update.cpp
+        netbsd/libpanel/window.cpp
+        )
+    endif()
   endif()
 endif()
 

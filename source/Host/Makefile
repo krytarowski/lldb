@@ -46,6 +46,17 @@ endif
 ifeq ($(HOST_OS),NetBSD)
 $(eval $(call DIR_SOURCES,posix))
 $(eval $(call DIR_SOURCES,netbsd))
+ifneq (,$(wildcard /usr/include/libpanel.h))
+    LIBPANEL_SOURCES = \
+              $(addprefix netbsd/libpanel/,$(notdir $(wildcard $(PROJ_SRC_DIR)/netbsd/libpanel/*.cpp)))
+    SOURCES += $(LIBPANEL_SOURCES)
+
+    LIBPANEL_BaseNameSources := $(sort $(basename $(LIBPANEL_SOURCES)))
+    LIBPANEL_OBJECTS := $(LIBPANEL_BaseNameSources:%=$(ObjDir)/%.o)
+
+    # Make sure the cfcpp output directory exists
+    $(LIBPANEL_OBJECTS): $(ObjDir)/libpanel/.dir
+endif
 endif
 
 ifeq ($(HOST_OS),MingW)

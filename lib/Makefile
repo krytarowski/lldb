@@ -18,7 +18,8 @@ LINK_LIBS_IN_SHARED = 1
 SHARED_LIBRARY = 1
 
 ifeq (,$(findstring -DLLDB_DISABLE_PYTHON,$(CXXFLAGS)))
-PYTHON_BUILD_FLAGS = $(shell python-config --ldflags)
+PYTHON_CONFIG?=	python-config
+PYTHON_BUILD_FLAGS = $(shell $(PYTHON_CONFIG) --ldflags)
 endif
 
 # Include all archives in liblldb.so file
@@ -169,6 +170,7 @@ ifeq ($(HOST_OS),Darwin)
 	LLVMLibsOptions += -framework CoreServices -framework Carbon -framework Security
 	LLVMLibsOptions += -framework DebugSymbols $(PYTHON_BUILD_FLAGS) -lobjc
 	LLVMLibsOptions += -lxml2 -ledit -lpanel -lcurses
+	CPP.Flags += -DHAVE_CURSES_LIBPANEL
 	ifneq ($(EXPORTED_SYMBOL_FILE),)
 		LLVMLibsOptions += -Wl,-exported_symbols_list -Wl,"$(EXPORTED_SYMBOL_FILE)"
 	endif
@@ -187,7 +189,8 @@ ifeq ($(HOST_OS), $(filter $(HOST_OS), Linux GNU GNU/kFreeBSD))
     # Don't allow unresolved symbols.
     LLVMLibsOptions += -Wl,--no-undefined
     # Link in python
-    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -ledit -lncurses -lpanel -lpthread
+    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -ledit -lcurses -lpanel -lpthread
+    CPP.Flags += -DHAVE_CURSES_LIBPANEL
     LLVMLibsOptions += -Wl,--soname,lib$(LIBRARYNAME)$(SHLIBEXT)
 endif
 
@@ -199,5 +202,21 @@ ifeq ($(HOST_OS),FreeBSD)
     LLVMLibsOptions += -Wl,--allow-shlib-undefined
     # Link in python
     LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -L/usr/local/lib -lexecinfo \
-                       -ledit -lncurses -lpanel -lpthread
+                       -ledit -lcurses -lpanel -lpthread
+    CPP.Flags += -DHAVE_CURSES_LIBPANEL
+endif
+
+ifeq ($(HOST_OS),NetBSD)
+    # Include everything from the .a's into the shared library.
+    ProjLibsOptions := -Wl,--whole-archive $(ProjLibsOptions) \
+                       -Wl,--no-whole-archive
+    # Allow unresolved symbols.
+    LLVMLibsOptions += -Wl,--allow-shlib-undefined
+    # Link in python
+    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -L/usr/pkg/lib -lexecinfo \
+                       -ledit -lcurses -lpthread
+    ifneq (,$(wildcard /usr/include/libpanel.h))
+        CPP.Flags += -DHAVE_CURSES_LIBPANEL
+        LLVMLibsOptions += -lpanel
+    endif
 endif
