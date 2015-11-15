@@ -399,14 +399,27 @@ endif()
 if (NOT LLDB_DISABLE_CURSES)
     find_package(Curses REQUIRED)
 
-    find_library(CURSES_PANEL_LIBRARY NAMES panel DOC "The curses panel library")
-    if (NOT CURSES_PANEL_LIBRARY)
-        message(FATAL_ERROR "A required curses' panel library not found.")
+    # LLDB ships with libpanel for NetBSD-7.0
+    if (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+        if (EXISTS "/usr/include/panel.h")
+            add_definitions(-DNETBSD_HAS_LIBPANEL)
+            set(LLDB_NETBSD_HAS_LIBPANEL 1)
+        else ()
+            set(LLDB_NETBSD_HAS_LIBPANEL 0)
+        endif ()
     endif ()
 
-    # Add panels to the library path
-    set (CURSES_LIBRARIES ${CURSES_LIBRARIES} ${CURSES_PANEL_LIBRARY})
+    if (NOT CMAKE_SYSTEM_NAME MATCHES "NetBSD" OR LLDB_NETBSD_HAS_LIBPANEL)
+        find_library(CURSES_PANEL_LIBRARY NAMES panel DOC "The curses panel library")
+        if (NOT CURSES_PANEL_LIBRARY)
+            message(FATAL_ERROR "A required curses' panel library not found.")
+        endif ()
 
-    list(APPEND system_libs ${CURSES_LIBRARIES})
+        # Add panels to the library path
+        set (CURSES_LIBRARIES ${CURSES_LIBRARIES} ${CURSES_PANEL_LIBRARY})
+
+        list(APPEND system_libs ${CURSES_LIBRARIES})
+    endif ()
+
     include_directories(${CURSES_INCLUDE_DIR})
 endif ()

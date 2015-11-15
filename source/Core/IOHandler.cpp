@@ -10,7 +10,7 @@
 // C Includes
 #ifndef LLDB_DISABLE_CURSES
 #include <curses.h>
-#include <panel.h>
+#include <lldb/Host/HostLibPanel.h>
 #endif
 
 // C++ Includes
