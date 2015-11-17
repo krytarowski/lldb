@@ -2,6 +2,8 @@ set(LLDB_PROJECT_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 set(LLDB_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/source")
 set(LLDB_INCLUDE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
+include(CheckIncludeFiles)
+
 set(LLDB_LINKER_SUPPORTS_GROUPS OFF)
 if (LLVM_COMPILER_IS_GCC_COMPATIBLE AND NOT "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
   # The Darwin linker doesn't understand --start-group/--end-group.
@@ -41,6 +43,23 @@ endif()
 if ((NOT MSVC) OR MSVC12)
   add_definitions( -DHAVE_ROUND )
 endif()
+
+if (NOT LLDB_DISABLE_CURSES)
+    find_package(Curses)
+
+    find_library(CURSES_PANEL_LIBRARY NAMES panel DOC "The curses panel library")
+    check_include_files(panel.h HAVE_PANEL_H)
+    if (NOT CURSES_FOUND OR NOT CURSES_PANEL_LIBRARY OR NOT HAVE_PANEL_H)
+        message("-- Unable to find pair curses and libpanel")
+        set(LLDB_DISABLE_CURSES 1)
+    else ()
+        # Add panels to the library path
+        set (CURSES_LIBRARIES ${CURSES_LIBRARIES} ${CURSES_PANEL_LIBRARY})
+
+        list(APPEND system_libs ${CURSES_LIBRARIES})
+        include_directories(${CURSES_INCLUDE_DIR})
+    endif ()
+endif ()
 
 if (LLDB_DISABLE_CURSES)
   add_definitions( -DLLDB_DISABLE_CURSES )
@@ -395,18 +414,3 @@ if ( CMAKE_SYSTEM_NAME MATCHES "Darwin" )
 else()
     set(LLDB_CAN_USE_DEBUGSERVER 0)
 endif()
-
-if (NOT LLDB_DISABLE_CURSES)
-    find_package(Curses REQUIRED)
-
-    find_library(CURSES_PANEL_LIBRARY NAMES panel DOC "The curses panel library")
-    if (NOT CURSES_PANEL_LIBRARY)
-        message(FATAL_ERROR "A required curses' panel library not found.")
-    endif ()
-
-    # Add panels to the library path
-    set (CURSES_LIBRARIES ${CURSES_LIBRARIES} ${CURSES_PANEL_LIBRARY})
-
-    list(APPEND system_libs ${CURSES_LIBRARIES})
-    include_directories(${CURSES_INCLUDE_DIR})
-endif ()
