@@ -9,8 +9,7 @@
  
 #pragma once
  
-// Third party headers:
-#include "../lib/Support/regex_impl.h"
+#include "lldb/Utility/regex_impl.h"
 
 // In-house headers:
 #include "MIUtilString.h"

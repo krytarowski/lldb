@@ -17,4 +17,9 @@ add_lldb_library(lldbUtility
   TaskPool.cpp
   TimeSpecTimeout.cpp
   UriParser.cpp
+  regcomp.c
+  regerror.c
+  regexec.c
+  regfree.c
+  regstrlcpy.c
   )
