@@ -9,8 +9,7 @@
  
 #pragma once
  
-// Third party headers:
-#include "../lib/Support/regex_impl.h"
+#include "llvm/Support/Regex.h"
 
 // In-house headers:
 #include "MIUtilString.h"
@@ -86,7 +85,7 @@ class CRegexParser
     Execute(const char *input, Match& match, size_t minMatches = 0);
  
   private:
-    llvm_regex_t m_emma;
+    llvm::Regex m_emma;
     const bool m_isValid;
 };
 

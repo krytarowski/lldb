@@ -21,8 +21,10 @@
 // Throws:  None.
 //--
 MIUtilParse::CRegexParser::CRegexParser(const char *regexStr)
-    : m_isValid(llvm_regcomp(&m_emma, regexStr, REG_EXTENDED) == 0)
 {
+    m_emma = llvm::Regex(regexStr, REG_EXTENDED);
+    std::string dummy;
+    m_isValid = m_emma.isValid(dummy);
 }
  
 //++ ------------------------------------------------------------------------------------
@@ -34,9 +36,6 @@ MIUtilParse::CRegexParser::CRegexParser(const char *regexStr)
 //--
 MIUtilParse::CRegexParser::~CRegexParser()
 {
-    // Free up memory held within regex.
-    if (m_isValid)
-        llvm_regfree(&m_emma);
 }
  
 //++ ------------------------------------------------------------------------------------
@@ -59,17 +58,16 @@ MIUtilParse::CRegexParser::Execute(const char *input, Match& match, size_t minMa
 {
     if (!m_isValid)
         return false;
- 
-    std::unique_ptr<llvm_regmatch_t[]> matches(new llvm_regmatch_t[match.m_maxMatches]); // Array of matches
-   
-    if (llvm_regexec(&m_emma, input, match.m_maxMatches, matches.get(), 0) != 0)
+
+    SmallVector<StringRef, 1> Matches;
+    Matches.resize(m_emma.getNumMatches());
+    if (!m_emma.match(StringRef(input), &matches))
         return false;
  
     size_t i;
     for (i = 0; i < match.m_maxMatches && matches[i].rm_so >= 0; i++)
     {
-        const int n = matches[i].rm_eo - matches[i].rm_so;
-        match.m_matchStrs[i].assign(input + matches[i].rm_so, n);
+        match.m_matchStrs[i].assign(matches[i]);
     }
     return i >= minMatches;
 }
