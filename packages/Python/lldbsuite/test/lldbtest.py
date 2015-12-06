@@ -740,6 +740,9 @@ def expectedFailureFreeBSD(bugnumber=None, compilers=None, debug_info=None):
 def expectedFailureLinux(bugnumber=None, compilers=None, debug_info=None):
     return expectedFailureOS(['linux'], bugnumber, compilers, debug_info=debug_info)
 
+def expectedFailureNetBSD(bugnumber=None, compilers=None, debug_info=None):
+    return expectedFailureOS(['netbsd'], bugnumber, compilers, debug_info=debug_info)
+
 def expectedFailureWindows(bugnumber=None, compilers=None, debug_info=None):
     return expectedFailureOS(['windows'], bugnumber, compilers, debug_info=debug_info)
 
@@ -826,11 +829,14 @@ def expectedFlakeyDarwin(bugnumber=None, compilers=None):
     # For legacy reasons, we support both "darwin" and "macosx" as OS X triples.
     return expectedFlakeyOS(getDarwinOSTriples(), bugnumber, compilers)
 
+def expectedFlakeyFreeBSD(bugnumber=None, compilers=None):
+    return expectedFlakeyOS(['freebsd'], bugnumber, compilers)
+
 def expectedFlakeyLinux(bugnumber=None, compilers=None):
     return expectedFlakeyOS(['linux'], bugnumber, compilers)
 
-def expectedFlakeyFreeBSD(bugnumber=None, compilers=None):
-    return expectedFlakeyOS(['freebsd'], bugnumber, compilers)
+def expectedFlakeyNetBSD(bugnumber=None, compilers=None):
+    return expectedFlakeyOS(['netbsd'], bugnumber, compilers)
 
 def expectedFlakeyCompiler(compiler, compiler_version=None, bugnumber=None):
     if compiler_version is None:
@@ -927,6 +933,10 @@ def skipIfFreeBSD(func):
     """Decorate the item to skip tests that should be skipped on FreeBSD."""
     return skipIfPlatform(["freebsd"])(func)
 
+def skipIfNetBSD(func):
+    """Decorate the item to skip tests that should be skipped on NetBSD."""
+    return skipIfPlatform(["netbsd"])(func)
+
 def getDarwinOSTriples():
     return ['darwin', 'macosx', 'ios']
 
@@ -996,6 +1006,8 @@ def getPlatform():
     platform = lldb.DBG.GetSelectedPlatform().GetTriple().split('-')[2]
     if platform.startswith('freebsd'):
         platform = 'freebsd'
+    if platform.startswith('netbsd'):
+        platform = 'netbsd'
     return platform
 
 def getHostPlatform():
@@ -1009,6 +1021,8 @@ def getHostPlatform():
         return 'darwin'
     elif sys.platform.startswith('freebsd'):
         return 'freebsd'
+    elif sys.platform.startswith('netbsd'):
+        return 'netbsd'
     else:
         return sys.platform
 
@@ -1311,7 +1325,7 @@ class Base(unittest2.TestCase):
         # Set platform context.
         if platformIsDarwin():
             cls.platformContext = _PlatformContext('DYLD_LIBRARY_PATH', 'lib', 'dylib')
-        elif getPlatform() == "linux" or getPlatform() == "freebsd":
+        elif getPlatform() == "linux" or getPlatform() == "freebsd" or getPlatform() == "netbsd":
             cls.platformContext = _PlatformContext('LD_LIBRARY_PATH', 'lib', 'so')
         else:
             cls.platformContext = None
@@ -2061,7 +2075,7 @@ class Base(unittest2.TestCase):
 
     def getstdlibFlag(self):
         """ Returns the proper -stdlib flag, or empty if not required."""
-        if self.platformIsDarwin() or self.getPlatform() == "freebsd":
+        if self.platformIsDarwin() or self.getPlatform() == "freebsd" or self.getPlatform() == "netbsd":
             stdlibflag = "-stdlib=libc++"
         else:
             stdlibflag = ""
@@ -2092,7 +2106,7 @@ class Base(unittest2.TestCase):
                  'FRAMEWORK_INCLUDES' : "-F%s" % lib_dir,
                  'LD_EXTRAS' : "%s -Wl,-rpath,%s" % (dsym, lib_dir),
                 }
-        elif sys.platform.startswith('freebsd') or sys.platform.startswith("linux") or os.environ.get('LLDB_BUILD_TYPE') == 'Makefile':
+        elif sys.platform.startswith('freebsd') or sys.platform.startswith("linux") or sys.platform.startswith("netbsd") or os.environ.get('LLDB_BUILD_TYPE') == 'Makefile':
             d = {'CXX_SOURCES' : sources,
                  'EXE' : exe_name,
                  'CFLAGS_EXTRAS' : "%s %s -I%s" % (stdflag, stdlibflag, os.path.join(os.environ["LLDB_SRC"], "include")),
@@ -2121,7 +2135,7 @@ class Base(unittest2.TestCase):
                  'FRAMEWORK_INCLUDES' : "-F%s" % lib_dir,
                  'LD_EXTRAS' : "%s -Wl,-rpath,%s -dynamiclib" % (dsym, lib_dir),
                 }
-        elif self.getPlatform() == 'freebsd' or self.getPlatform() == 'linux' or os.environ.get('LLDB_BUILD_TYPE') == 'Makefile':
+        elif self.getPlatform() == 'freebsd' or self.getPlatform() == 'linux' or self.getPlatform() == 'netbsd' or os.environ.get('LLDB_BUILD_TYPE') == 'Makefile':
             d = {'DYLIB_CXX_SOURCES' : sources,
                  'DYLIB_NAME' : lib_name,
                  'CFLAGS_EXTRAS' : "%s -I%s -fPIC" % (stdflag, os.path.join(os.environ["LLDB_SRC"], "include")),
@@ -2236,7 +2250,7 @@ class Base(unittest2.TestCase):
                 cflags += "c++0x"
             else:
                 cflags += "c++11"
-        if self.platformIsDarwin() or self.getPlatform() == "freebsd":
+        if self.platformIsDarwin() or self.getPlatform() == "freebsd" or self.getPlatform() == "netbsd":
             cflags += " -stdlib=libc++"
         elif "clang" in self.getCompiler():
             cflags += " -stdlib=libstdc++"
@@ -2271,6 +2285,8 @@ class Base(unittest2.TestCase):
     def getLibcPlusPlusLibs(self):
         if self.getPlatform() == 'freebsd' or self.getPlatform() == 'linux':
             return ['libc++.so.1']
+        elif self.getPlatform() == 'netbsd':
+            return ['libstdc++.so']
         else:
             return ['libc++.1.dylib','libc++abi.dylib']
 

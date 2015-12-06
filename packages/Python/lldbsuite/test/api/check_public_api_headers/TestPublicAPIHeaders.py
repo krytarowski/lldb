@@ -50,7 +50,7 @@ class SBDirCheckerCase(TestBase):
         # For different platforms, the include statement can vary.
         if self.platformIsDarwin():
             include_stmt = "'#include <%s>' % os.path.join('LLDB', header)"
-        if self.getPlatform() == "freebsd" or self.getPlatform() == "linux" or os.environ.get('LLDB_BUILD_TYPE') == 'Makefile':
+        if self.getPlatform() == "freebsd" or self.getPlatform() == "linux" or self.getPlatform() == "netbsd" or os.environ.get('LLDB_BUILD_TYPE') == 'Makefile':
             include_stmt = "'#include <%s>' % os.path.join(public_api_dir, header)"
         list = [eval(include_stmt) for header in public_headers if (header.startswith("SB") and
                                                                     header.endswith(".h"))]

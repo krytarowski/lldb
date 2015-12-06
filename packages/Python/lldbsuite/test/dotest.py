@@ -1557,11 +1557,11 @@ def run_suite():
     # Use @dsym_test, @dwarf_test or @dwo_test decorators, defined in lldbtest.py, to mark a test as
     # a dsym, dwarf or dwo test.  Use '-N dsym', '-N dwarf' or '-N dwo' to exclude dsym, dwarf or
     # dwo tests from running.
-    dont_do_dsym_test = dont_do_dsym_test or any(platform in target_platform for platform in ["linux", "freebsd", "windows"])
+    dont_do_dsym_test = dont_do_dsym_test or any(platform in target_platform for platform in ["linux", "freebsd", "windows", "netbsd"])
     dont_do_dwo_test = dont_do_dwo_test or any(platform in target_platform for platform in ["darwin", "macosx", "ios"])
 
     # Don't do debugserver tests on everything except OS X.
-    dont_do_debugserver_test = "linux" in target_platform or "freebsd" in target_platform or "windows" in target_platform
+    dont_do_debugserver_test = "linux" in target_platform or "freebsd" in target_platform or "windows" in target_platform or "netbsd" in target_platform
 
     # Don't do lldb-server (llgs) tests on anything except Linux.
     dont_do_llgs_test = not ("linux" in target_platform)
