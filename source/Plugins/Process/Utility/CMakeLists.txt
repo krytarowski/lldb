@@ -3,6 +3,7 @@ include_directories(../../../Utility/)
 add_lldb_library(lldbPluginProcessUtility
   DynamicRegisterInfo.cpp
   FreeBSDSignals.cpp
+  NetBSDSignals.cpp
   GDBRemoteSignals.cpp
   HistoryThread.cpp
   HistoryUnwind.cpp
