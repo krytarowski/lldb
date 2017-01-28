@@ -553,7 +553,8 @@ uint32_t SymbolFileDWARF::CalculateAbilities() {
 const DWARFDataExtractor &
 SymbolFileDWARF::GetCachedSectionData(lldb::SectionType sect_type,
                                       DWARFDataSegment &data_segment) {
-  std::call_once(data_segment.m_flag, &SymbolFileDWARF::LoadSectionData, this,
+  LLVM_DEFINE_ONCE_FLAG(m_flag);
+  llvm::call_once(m_flag, &SymbolFileDWARF::LoadSectionData, this,
                  sect_type, std::ref(data_segment.m_data));
   return data_segment.m_data;
 }

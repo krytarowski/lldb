@@ -27,6 +27,7 @@
 #include "lldb/Target/UnixSignals.h"
 
 #include "llvm/Support/ELF.h"
+#include "llvm/Support/Threading.h"
 
 #include "Plugins/DynamicLoader/POSIX-DYLD/DynamicLoaderPOSIXDYLD.h"
 #include "Plugins/ObjectFile/ELF/ObjectFileELF.h"
@@ -36,6 +37,7 @@
 #include "ThreadElfCore.h"
 
 using namespace lldb_private;
+using namespace llvm;
 
 ConstString ProcessElfCore::GetPluginNameStatic() {
   static ConstString g_name("elf-core");
@@ -398,9 +400,9 @@ void ProcessElfCore::Clear() {
 }
 
 void ProcessElfCore::Initialize() {
-  static std::once_flag g_once_flag;
+  LLVM_DEFINE_ONCE_FLAG(g_once_flag);
 
-  std::call_once(g_once_flag, []() {
+  llvm::call_once(g_once_flag, []() {
     PluginManager::RegisterPlugin(GetPluginNameStatic(),
                                   GetPluginDescriptionStatic(), CreateInstance);
   });
