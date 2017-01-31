@@ -73,6 +73,8 @@
 #include "lldb/Host/windows/ProcessLauncherWindows.h"
 #elif defined(__linux__)
 #include "lldb/Host/linux/ProcessLauncherLinux.h"
+#elif defined(__NetBSD__)
+#include "lldb/Host/netbsd/ProcessLauncherNetBSD.h"
 #else
 #include "lldb/Host/posix/ProcessLauncherPosix.h"
 #endif
@@ -977,6 +979,8 @@ Error Host::LaunchProcess(ProcessLaunchInfo &launch_info) {
   delegate_launcher.reset(new ProcessLauncherWindows());
 #elif defined(__linux__)
   delegate_launcher.reset(new ProcessLauncherLinux());
+#elif defined(__NetBSD__)
+  delegate_launcher.reset(new ProcessLauncherNetBSD());
 #else
   delegate_launcher.reset(new ProcessLauncherPosix());
 #endif

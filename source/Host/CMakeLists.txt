@@ -140,6 +140,7 @@ else()
       netbsd/HostInfoNetBSD.cpp
       netbsd/HostThreadNetBSD.cpp
       netbsd/ThisThread.cpp
+      netbsd/ProcessLauncherNetBSD.cpp
       )
   endif()
 endif()
