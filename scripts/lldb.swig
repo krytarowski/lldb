@@ -42,7 +42,7 @@ import uuid
 import re
 import os
 
-import six
+import .six
 %}
 %include "./Python/python-typemaps.swig"
 
