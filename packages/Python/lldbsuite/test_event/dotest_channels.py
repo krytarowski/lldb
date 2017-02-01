@@ -23,7 +23,7 @@ import asyncore
 import socket
 
 # Third-party modules
-from six.moves import cPickle
+from lldb.six.moves import cPickle
 
 # LLDB modules
 

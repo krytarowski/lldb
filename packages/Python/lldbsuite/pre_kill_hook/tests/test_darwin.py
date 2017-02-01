@@ -8,7 +8,7 @@ import re
 from unittest import main, TestCase
 
 # third party
-from six import StringIO
+from lldb.six import StringIO
 
 
 def do_child_process(child_work_queue, parent_work_queue, verbose):

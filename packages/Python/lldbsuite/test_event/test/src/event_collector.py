@@ -7,7 +7,7 @@ import sys
 import tempfile
 
 # noinspection PyUnresolvedReferences
-from six.moves import cPickle
+from lldb.six.moves import cPickle
 
 
 def path_to_dotest_py():

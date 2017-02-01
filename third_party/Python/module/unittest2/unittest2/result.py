@@ -6,7 +6,7 @@ import sys
 import traceback
 import unittest
 
-from six import StringIO as SixStringIO
+from lldb.six import StringIO as SixStringIO
 
 from unittest2 import util
 from unittest2.compatibility import wraps

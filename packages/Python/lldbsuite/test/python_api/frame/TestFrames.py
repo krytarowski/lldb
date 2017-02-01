@@ -49,7 +49,7 @@ class FrameAPITestCase(TestBase):
         # depth of 3 of the 'c' leaf function.
         callsOfA = 0
 
-        from six import StringIO as SixStringIO
+        from lldb.six import StringIO as SixStringIO
         session = SixStringIO()
         while process.GetState() == lldb.eStateStopped:
             thread = lldbutil.get_stopped_thread(

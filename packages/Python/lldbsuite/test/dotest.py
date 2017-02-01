@@ -33,7 +33,7 @@ import subprocess
 import sys
 
 # Third-party modules
-import six
+from lldb import six
 import unittest2
 
 # LLDB Modules

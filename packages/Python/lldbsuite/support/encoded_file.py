@@ -12,7 +12,7 @@ to see a description of the supported command line arguments.
 import io
 
 # Third party modules
-import six
+from lldb import six
 
 
 def _encoded_read(old_read, encoding):
