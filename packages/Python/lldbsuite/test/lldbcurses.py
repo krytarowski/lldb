@@ -7,7 +7,7 @@ import sys
 import time
 
 # Third-party modules
-import six
+from lldb import six
 
 # LLDB modules
 

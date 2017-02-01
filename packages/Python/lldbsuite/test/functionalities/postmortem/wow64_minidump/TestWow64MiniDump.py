@@ -8,7 +8,7 @@ get the 32-bit register contexts.
 """
 
 from __future__ import print_function
-from six import iteritems
+from lldb.six import iteritems
 
 
 import lldb

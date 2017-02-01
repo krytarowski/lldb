@@ -295,7 +295,7 @@ ScriptInterpreterPython::ScriptInterpreterPython(
   // This provides
   // a consistent syntax no matter what version of Python.
   run_string.Clear();
-  run_string.Printf("run_one_line (%s, 'from six.moves import reload_module')",
+  run_string.Printf("run_one_line (%s, 'from lldb.six.moves import reload_module')",
                     m_dictionary_name.c_str());
   PyRun_SimpleString(run_string.GetData());
 

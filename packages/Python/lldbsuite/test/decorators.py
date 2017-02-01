@@ -11,7 +11,7 @@ import sys
 import tempfile
 
 # Third-party modules
-import six
+from lldb import six
 import unittest2
 
 # LLDB modules

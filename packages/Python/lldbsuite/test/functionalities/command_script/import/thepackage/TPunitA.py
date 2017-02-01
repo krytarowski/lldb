@@ -1,5 +1,5 @@
 
-import six
+from lldb import six
 
 
 def command(debugger, command, result, internal_dict):

@@ -8,7 +8,7 @@ import threading
 import traceback
 import codecs
 
-from six.moves import queue
+from lldb.six.moves import queue
 
 
 def _handle_output_packet_string(packet_contents):

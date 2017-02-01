@@ -46,8 +46,8 @@ import signal
 import sys
 import threading
 
-from six import StringIO
-from six.moves import queue
+from lldb.six import StringIO
+from lldb.six.moves import queue
 
 # Our packages and modules
 import lldbsuite

@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 # third-party module imports
-import six
+from lldb import six
 
 
 def do_pre_kill(process_id, runner_context, output_stream, sample_time=3):

@@ -3,7 +3,7 @@
 import sys
 import os
 import types
-import six
+from lldb import six
 
 from unittest2 import loader, runner
 try:

@@ -1,7 +1,7 @@
 import difflib
 import pprint
 import re
-import six
+from lldb import six
 
 from copy import deepcopy
 

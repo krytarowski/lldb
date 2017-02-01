@@ -17,7 +17,7 @@ import sys
 import xml.sax.saxutils
 
 # Third-party modules
-import six
+from lldb import six
 
 # Local modules
 from ..event_builder import EventBuilder

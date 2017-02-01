@@ -15,8 +15,8 @@ import sys
 import time
 
 # Third-party modules
-from six import StringIO as SixStringIO
-import six
+from lldb.six import StringIO as SixStringIO
+from lldb import six
 
 # LLDB modules
 import lldb

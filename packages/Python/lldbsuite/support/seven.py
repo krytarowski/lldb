@@ -1,4 +1,4 @@
-import six
+from lldb import six
 
 if six.PY2:
     import commands

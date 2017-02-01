@@ -13,7 +13,7 @@ import os
 
 # Our modules
 from .results_formatter import ResultsFormatter
-from six.moves import cPickle
+from lldb.six.moves import cPickle
 
 
 class RawPickledFormatter(ResultsFormatter):

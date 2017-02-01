@@ -542,7 +542,7 @@ def copy_six(vDictArgs, vstrFrameworkPythonDir):
         "six",
         six_module_filename)
     src_file = os.path.normpath(src_file)
-    target = os.path.join(site_packages_dir, six_module_filename)
+    target = os.path.join(site_packages_dir, "lldb", six_module_filename)
 
     if bDbg:
         print((strMsgCopySixPy % (src_file, target)))

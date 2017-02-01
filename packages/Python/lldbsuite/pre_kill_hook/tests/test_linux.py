@@ -9,7 +9,7 @@ import subprocess
 from unittest import main, TestCase
 
 # third party
-from six import StringIO
+from lldb.six import StringIO
 
 
 def do_child_thread():
