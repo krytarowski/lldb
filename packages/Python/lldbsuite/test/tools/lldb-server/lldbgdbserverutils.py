@@ -8,13 +8,13 @@ import os
 import os.path
 import platform
 import re
-import six
+from lldb import six
 import socket_packet_pump
 import subprocess
 import time
 from lldbsuite.test.lldbtest import *
 
-from six.moves import queue
+from lldb.six.moves import queue
 
 
 def _get_debug_monitor_from_lldb(lldb_exe, debug_monitor_basename):

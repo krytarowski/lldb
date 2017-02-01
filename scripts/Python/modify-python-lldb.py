@@ -33,7 +33,7 @@ else:
 import use_lldb_suite
 
 # Third party modules
-import six
+from lldb import six
 
 # LLDB modules
 

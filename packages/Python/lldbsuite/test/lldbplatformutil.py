@@ -10,8 +10,8 @@ import subprocess
 import sys
 
 # Third-party modules
-import six
-from six.moves.urllib import parse as urlparse
+from lldb import six
+from lldb.six.moves.urllib import parse as urlparse
 
 # LLDB modules
 from . import configuration

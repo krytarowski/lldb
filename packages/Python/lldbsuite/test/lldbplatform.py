@@ -6,7 +6,7 @@ from __future__ import absolute_import
 import itertools
 
 # Third-party modules
-import six
+from lldb import six
 
 # LLDB modules
 import use_lldb_suite

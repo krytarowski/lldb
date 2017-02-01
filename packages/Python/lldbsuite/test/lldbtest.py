@@ -53,9 +53,9 @@ import types
 
 # Third-party modules
 import unittest2
-from six import add_metaclass
-from six import StringIO as SixStringIO
-import six
+from lldb.six import add_metaclass
+from lldb.six import StringIO as SixStringIO
+from lldb import six
 
 # LLDB modules
 import use_lldb_suite

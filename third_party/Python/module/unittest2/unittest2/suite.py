@@ -3,7 +3,7 @@
 import sys
 import unittest
 from unittest2 import case, util
-import six
+from lldb import six
 
 __unittest = True
 

@@ -6,7 +6,7 @@ import os
 import sys
 
 # Third-party modules
-import six
+from lldb import six
 
 # LLDB Modules
 import lldb

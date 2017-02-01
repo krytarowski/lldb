@@ -1,5 +1,5 @@
 import unittest2
-import six
+from lldb import six
 
 from unittest2.test.support import LoggingResult
 

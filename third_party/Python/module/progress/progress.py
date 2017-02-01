@@ -3,7 +3,7 @@
 from __future__ import print_function
 
 import use_lldb_suite
-import six
+from lldb import six
 
 import sys
 import time
