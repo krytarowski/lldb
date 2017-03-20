@@ -64,7 +64,8 @@ DynamicLoader *DynamicLoaderPOSIXDYLD::CreateInstance(Process *process,
     const llvm::Triple &triple_ref =
         process->GetTarget().GetArchitecture().GetTriple();
     if (triple_ref.getOS() == llvm::Triple::Linux ||
-        triple_ref.getOS() == llvm::Triple::FreeBSD)
+        triple_ref.getOS() == llvm::Triple::FreeBSD ||
+        triple_ref.getOS() == llvm::Triple::NetBSD)
       create = true;
   }
 
